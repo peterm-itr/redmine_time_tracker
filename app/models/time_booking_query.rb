@@ -37,7 +37,7 @@ class TimeBookingQuery < Query
       versions = project.shared_versions.all
     else
       # TODO: find a way to get shared_versions without killing the db
-      versions = Project.visible.includes(:versions).all.flat_map { |project| project.shared_versions.all }
+      versions = Project.visible.includes(:versions).all.map { |project| project.shared_versions.all }.flatten
       versions.uniq!
     end
 
